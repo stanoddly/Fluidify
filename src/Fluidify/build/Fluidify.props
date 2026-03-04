@@ -1,8 +1,0 @@
-<Project>
-
-  <!-- Define the Fluidify item type. Users add items explicitly in their csproj:
-       <Fluidify Include="**/*.fluid" />
-       <Fluidify Include="File.cs.fluid" Destination="File.cs" Param1="value" />
-  -->
-
-</Project>

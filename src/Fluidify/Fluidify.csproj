@@ -19,7 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="build\Fluidify.props" Pack="true" PackagePath="build" Visible="false" />
     <None Include="build\Fluidify.targets" Pack="true" PackagePath="build" Visible="false" />
   </ItemGroup>
 
