@@ -5,6 +5,13 @@
     <LangVersion>latest</LangVersion>
     <PackageId>Fluidify</PackageId>
     <Version>0.1.0</Version>
+    <Authors>stanoddly</Authors>
+    <Description>MSBuild task that processes Fluid (Liquid) templates at build time, turning .fluid files into generated code, configuration, or any other text output.</Description>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/stanoddly/Fluidify</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/stanoddly/Fluidify</RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>msbuild;codegen;liquid;fluid;template</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageOutputPath>$(MSBuildThisFileDirectory)../../artifacts/pkg</PackageOutputPath>
     <IncludeBuildOutput>false</IncludeBuildOutput>
@@ -20,6 +27,7 @@
 
   <ItemGroup>
     <None Include="build\Fluidify.targets" Pack="true" PackagePath="build" Visible="false" />
+    <None Include="..\..\README.md" Pack="true" PackagePath="" Visible="false" />
   </ItemGroup>
 
   <PropertyGroup>
