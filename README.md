@@ -58,6 +58,8 @@ Fluidify registers an MSBuild target that runs before `CoreCompile`. For each `<
 2. Passes all item metadata (except `Destination`) as template variables
 3. Writes the rendered output to the inferred or specified destination
 
+MSBuild tracks input and output timestamps, so templates are only re-rendered when the source file changes.
+
 ## License
 
 Apache-2.0
