@@ -5,7 +5,7 @@
 
   <Target Name="ProcessFluidTemplates" BeforeTargets="CoreCompile"
           Condition="'@(Fluidify)' != ''">
-    <FluidifyTask Templates="@(Fluidify)" />
+    <FluidifyTask Templates="@(Fluidify)" ProjectDirectory="$(MSBuildProjectDirectory)" />
   </Target>
 
 </Project>
