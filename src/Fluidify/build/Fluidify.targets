@@ -3,8 +3,26 @@
   <UsingTask TaskName="Fluidify.FluidifyTask"
              AssemblyFile="$(MSBuildThisFileDirectory)../tasks/netstandard2.0/Fluidify.dll" />
 
-  <Target Name="ProcessFluidTemplates" BeforeTargets="CoreCompile"
+  <Target Name="ComputeFluidifyOutputs"
           Condition="'@(Fluidify)' != ''">
+    <ItemGroup>
+      <Fluidify Condition="'%(Fluidify.Destination)' == ''">
+        <OutputPath>%(RootDir)%(Directory)%(Filename)</OutputPath>
+      </Fluidify>
+      <Fluidify Condition="'%(Fluidify.Destination)' != '' and $([System.IO.Path]::IsPathRooted('%(Fluidify.Destination)'))">
+        <OutputPath>%(Fluidify.Destination)</OutputPath>
+      </Fluidify>
+      <Fluidify Condition="'%(Fluidify.Destination)' != '' and !$([System.IO.Path]::IsPathRooted('%(Fluidify.Destination)'))">
+        <OutputPath>$(MSBuildProjectDirectory)\%(Fluidify.Destination)</OutputPath>
+      </Fluidify>
+    </ItemGroup>
+  </Target>
+
+  <Target Name="ProcessFluidTemplates" BeforeTargets="CoreCompile"
+          DependsOnTargets="ComputeFluidifyOutputs"
+          Condition="'@(Fluidify)' != ''"
+          Inputs="@(Fluidify)"
+          Outputs="@(Fluidify -> '%(OutputPath)')">
     <FluidifyTask Templates="@(Fluidify)" ProjectDirectory="$(MSBuildProjectDirectory)" />
   </Target>
 
