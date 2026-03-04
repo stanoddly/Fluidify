@@ -17,45 +17,45 @@ public class FluidifyTask : Task
 
     public override bool Execute()
     {
-        var parser = new FluidParser();
+        FluidParser parser = new FluidParser();
 
-        foreach (var item in Templates)
+        foreach (ITaskItem item in Templates)
         {
-            var templatePath = item.GetMetadata("FullPath");
-            var templateContent = File.ReadAllText(templatePath);
+            string templatePath = item.GetMetadata("FullPath");
+            string templateContent = File.ReadAllText(templatePath);
 
-            if (!parser.TryParse(templateContent, out var template, out var error))
+            if (!parser.TryParse(templateContent, out IFluidTemplate template, out string error))
             {
                 Log.LogError("Failed to parse template '{0}': {1}", templatePath, error);
                 return false;
             }
 
-            var target = item.GetMetadata("Destination");
+            string destination = item.GetMetadata("Destination");
             string outputPath;
-            if (!string.IsNullOrEmpty(target))
+            if (!string.IsNullOrEmpty(destination))
             {
-                outputPath = Path.IsPathRooted(target)
-                    ? target
-                    : Path.Combine(ProjectDirectory, target);
+                outputPath = Path.IsPathRooted(destination)
+                    ? destination
+                    : Path.Combine(ProjectDirectory, destination);
             }
             else
             {
                 outputPath = templatePath.Substring(0, templatePath.Length - ".fluid".Length);
             }
 
-            var context = new TemplateContext();
+            TemplateContext context = new TemplateContext();
             foreach (DictionaryEntry entry in item.CloneCustomMetadata())
             {
-                var key = entry.Key.ToString();
+                string key = entry.Key.ToString();
                 if (!string.Equals(key, "Destination", StringComparison.OrdinalIgnoreCase))
                 {
                     context.SetValue(key, entry.Value?.ToString() ?? "");
                 }
             }
 
-            var result = template.Render(context);
+            string result = template.Render(context);
 
-            var outputDir = Path.GetDirectoryName(outputPath);
+            string outputDir = Path.GetDirectoryName(outputPath);
             if (!string.IsNullOrEmpty(outputDir))
                 Directory.CreateDirectory(outputDir);
 
