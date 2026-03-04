@@ -33,6 +33,8 @@ public static class Greeting
 
 Building the project renders each template before compilation. The output path is inferred by stripping the `.fluid` extension, so `Models/Greeting.cs.fluid` produces `Models/Greeting.cs`.
 
+Fluidify works with any text format — C#, JSON, HTML, YAML, or anything else. The `.fluid` extension is just a convention; the template itself is plain text with Liquid tags.
+
 ### Custom output path
 
 Use the `Destination` metadata to write the output to a different location:
