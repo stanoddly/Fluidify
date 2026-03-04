@@ -2,5 +2,5 @@ namespace SampleApp.Models;
 
 public static class Greeting
 {
-    public static string Message => "{{ "hello" | upcase }}, World!";
+    public static string Message => "{{ Greeting }}, World!";
 }

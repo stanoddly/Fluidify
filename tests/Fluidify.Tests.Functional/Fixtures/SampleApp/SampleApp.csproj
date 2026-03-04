@@ -9,4 +9,9 @@
     <PackageReference Include="Fluidify" Version="0.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Fluidify Include="Models/Greeting.cs.fluid" Greeting="HELLO" />
+    <Fluidify Include="Config/appsettings.json.fluid" AppName="SampleApp" Version="1.0.0" />
+  </ItemGroup>
+
 </Project>
