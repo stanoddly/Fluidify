@@ -30,7 +30,9 @@
           DependsOnTargets="ProcessFluidTemplates"
           Condition="'@(Fluidify)' != ''">
     <ItemGroup>
-      <!-- Auto-include .cs outputs unless Compile="false"; also honor explicit Compile="true" for any extension -->
+      <!-- Auto-include .cs outputs unless Compile="false"; also honor explicit Compile="true" for any extension.
+           Remove then Include: prevents duplicate Compile entries when the file already exists on disk
+           from a previous build and was picked up by the SDK glob at project load time. -->
       <Compile Remove="%(Fluidify.OutputPath)"
                Condition="('%(Fluidify.Compile)' == 'true') or
                           ($([System.IO.Path]::GetExtension('%(Fluidify.OutputPath)')) == '.cs' and '%(Fluidify.Compile)' != 'false')" />
