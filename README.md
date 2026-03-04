@@ -16,24 +16,34 @@ Add `<Fluidify>` items to your project file. Each item points to a `.fluid` temp
 
 ```xml
 <ItemGroup>
-  <Fluidify Include="Models/Greeting.cs.fluid" Greeting="HELLO" />
+  <Fluidify Include="WelcomeMessage.cs.fluid" Name="Alice" />
   <Fluidify Include="Config/appsettings.json.fluid" AppName="MyApp" Version="1.0.0" />
 </ItemGroup>
 ```
 
 Templates use standard [Liquid syntax](https://shopify.github.io/liquid/):
 
-**Models/Greeting.cs.fluid**
+**WelcomeMessage.cs.fluid**
 ```liquid
-public static class Greeting
+public static class WelcomeMessage
 {
-    public const string Value = "{{ Greeting }}, World!";
+    public const string Text = "Welcome, {{ Name }}!";
 }
 ```
 
-Building the project renders each template before compilation. The output path is inferred by stripping the `.fluid` extension, so `Models/Greeting.cs.fluid` produces `Models/Greeting.cs`.
+Building the project renders each template before compilation. The output path is inferred by stripping the `.fluid` extension, so `WelcomeMessage.cs.fluid` produces `WelcomeMessage.cs`.
 
 Fluidify works with any text format — C#, JSON, HTML, YAML, or anything else. The `.fluid` extension is just a convention; the template itself is plain text with Liquid tags.
+
+### Including generated C# in compilation
+
+By default, generated `.cs` files are not automatically compiled — MSBuild's SDK glob evaluates before templates are rendered. Add `Compile="true"` to include the output in compilation:
+
+```xml
+<ItemGroup>
+  <Fluidify Include="WelcomeMessage.cs.fluid" Name="Alice" Compile="true" />
+</ItemGroup>
+```
 
 ### Custom output path
 
@@ -55,7 +65,7 @@ Relative paths are resolved from the project directory. Directories are created 
 Fluidify registers an MSBuild target that runs before `CoreCompile`. For each `<Fluidify>` item it:
 
 1. Parses the `.fluid` file using the Fluid template engine
-2. Passes all item metadata (except `Destination`) as template variables
+2. Passes all item metadata (except `Destination` and `Compile`) as template variables
 3. Writes the rendered output to the inferred or specified destination
 
 MSBuild tracks input and output timestamps, so templates are only re-rendered when the source file changes.

@@ -35,6 +35,9 @@ public class CompileTests
             $"Fluidify build failed:\n{buildResult.Output}");
     }
 
+    private static readonly string CompileFalseAppDir = Path.Combine(
+        SolutionRoot, "tests", "Fluidify.Tests.Functional", "Fixtures", "CompileFalseApp");
+
     [Test]
     public async Task GeneratedCsFile_IsCompiledSuccessfully()
     {
@@ -49,6 +52,24 @@ public class CompileTests
 
         Assert.That(result.ExitCode, Is.EqualTo(0),
             $"CompileApp build failed — generated .cs file was not included in compilation:\n{result.Output}");
+    }
+
+    [Test]
+    public async Task GeneratedCsFile_CompileFalse_IsExcludedFromCompilation()
+    {
+        string generatedFile = Path.Combine(CompileFalseAppDir, "Models", "Greeter.cs");
+
+        // Delete generated file to simulate a clean build
+        if (File.Exists(generatedFile))
+            File.Delete(generatedFile);
+
+        string project = Path.Combine(CompileFalseAppDir, "CompileFalseApp.csproj");
+        (int ExitCode, string Output) result = await RunDotnet($"build \"{project}\" --force");
+
+        Assert.That(result.ExitCode, Is.Not.EqualTo(0),
+            $"Build should have failed — Compile=\"false\" should exclude the generated .cs from compilation:\n{result.Output}");
+        Assert.That(result.Output, Does.Contain("CS0246").Or.Contains("CS0103"),
+            "Expected a missing type/namespace compiler error");
     }
 
     private static async Task<(int ExitCode, string Output)> RunDotnet(string arguments)

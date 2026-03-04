@@ -47,7 +47,8 @@ public class FluidifyTask : Task
             foreach (DictionaryEntry entry in item.CloneCustomMetadata())
             {
                 string key = entry.Key.ToString();
-                if (!string.Equals(key, "Destination", StringComparison.OrdinalIgnoreCase))
+                if (!string.Equals(key, "Destination", StringComparison.OrdinalIgnoreCase) &&
+                    !string.Equals(key, "Compile", StringComparison.OrdinalIgnoreCase))
                 {
                     context.SetValue(key, entry.Value?.ToString() ?? "");
                 }

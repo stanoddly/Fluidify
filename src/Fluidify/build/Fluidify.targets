@@ -26,4 +26,18 @@
     <FluidifyTask Templates="@(Fluidify)" ProjectDirectory="$(MSBuildProjectDirectory)" />
   </Target>
 
+  <Target Name="AddFluidifyCompileItems" BeforeTargets="CoreCompile"
+          DependsOnTargets="ProcessFluidTemplates"
+          Condition="'@(Fluidify)' != ''">
+    <ItemGroup>
+      <!-- Auto-include .cs outputs unless Compile="false"; also honor explicit Compile="true" for any extension -->
+      <Compile Remove="%(Fluidify.OutputPath)"
+               Condition="('%(Fluidify.Compile)' == 'true') or
+                          ($([System.IO.Path]::GetExtension('%(Fluidify.OutputPath)')) == '.cs' and '%(Fluidify.Compile)' != 'false')" />
+      <Compile Include="%(Fluidify.OutputPath)"
+               Condition="('%(Fluidify.Compile)' == 'true') or
+                          ($([System.IO.Path]::GetExtension('%(Fluidify.OutputPath)')) == '.cs' and '%(Fluidify.Compile)' != 'false')" />
+    </ItemGroup>
+  </Target>
+
 </Project>

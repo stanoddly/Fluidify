@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Fluidify Include="Models/Greeter.cs.fluid" Greeting="HELLO" />
+    <Fluidify Include="Models/Greeter.cs.fluid" Greeting="HELLO" Compile="false" />
   </ItemGroup>
 
 </Project>
