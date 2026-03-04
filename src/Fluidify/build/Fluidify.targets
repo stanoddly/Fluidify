@@ -3,17 +3,9 @@
   <UsingTask TaskName="Fluidify.FluidifyTask"
              AssemblyFile="$(MSBuildThisFileDirectory)../tasks/netstandard2.0/Fluidify.dll" />
 
-  <Target Name="ProcessFluidTemplates" BeforeTargets="CoreCompile">
-    <FluidifyTask Templates="@(FluidTemplate)"
-                  OutputDir="$(IntermediateOutputPath)Fluidify/">
-      <Output TaskParameter="GeneratedFiles" ItemName="GeneratedFluidFile" />
-    </FluidifyTask>
-
-    <!-- Add generated .cs files to compilation -->
-    <ItemGroup>
-      <Compile Include="@(GeneratedFluidFile)" Condition="'%(Extension)' == '.cs'" />
-      <Content Include="@(GeneratedFluidFile)" Condition="'%(Extension)' != '.cs'" CopyToOutputDirectory="PreserveNewest" />
-    </ItemGroup>
+  <Target Name="ProcessFluidTemplates" BeforeTargets="CoreCompile"
+          Condition="'@(Fluidify)' != ''">
+    <FluidifyTask Templates="@(Fluidify)" />
   </Target>
 
 </Project>

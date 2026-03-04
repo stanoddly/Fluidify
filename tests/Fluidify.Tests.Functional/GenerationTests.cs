@@ -17,9 +17,6 @@ public class GenerationTests
 
     private static readonly string ExpectedDir = Path.Combine(SampleAppDir, "Expected");
 
-    private static readonly string GeneratedDir = Path.Combine(
-        SampleAppDir, "obj", "Debug", "net9.0", "Fluidify");
-
     [OneTimeSetUp]
     public async Task PackAndBuildSampleApp()
     {
@@ -50,7 +47,7 @@ public class GenerationTests
     [TestCase("Config/appsettings.json")]
     public async Task FluidTemplate_GeneratesExpectedOutput(string relativePath)
     {
-        var generatedFile = Path.Combine(GeneratedDir, relativePath);
+        var generatedFile = Path.Combine(SampleAppDir, relativePath);
         var expectedFile = Path.Combine(ExpectedDir, relativePath);
 
         Assert.That(File.Exists(generatedFile), Is.True,
