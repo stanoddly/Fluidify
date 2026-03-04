@@ -45,6 +45,7 @@ public class GenerationTests
 
     [TestCase("Models/Greeting.cs")]
     [TestCase("Config/appsettings.json")]
+    [TestCase("Output/report.html")]
     public async Task FluidTemplate_GeneratesExpectedOutput(string relativePath)
     {
         var generatedFile = Path.Combine(SampleAppDir, relativePath);
