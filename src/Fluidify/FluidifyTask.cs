@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.IO;
 using Fluid;
 using Microsoft.Build.Framework;
@@ -9,17 +9,6 @@ namespace Fluidify;
 
 public class FluidifyTask : Task
 {
-    private static readonly HashSet<string> ExcludedMetadata = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
-    {
-        "FullPath", "RootDir", "Filename", "Extension", "RelativeDir",
-        "Directory", "RecursiveDir", "Identity", "ModifiedTime",
-        "CreatedTime", "AccessedTime", "DefiningProjectFullPath",
-        "DefiningProjectDirectory", "DefiningProjectName",
-        "DefiningProjectExtension", "MSBuildSourceProjectFile",
-        "MSBuildSourceTargetName", "OriginalItemSpec",
-        "TargetPath"
-    };
-
     [Required]
     public ITaskItem[] Templates { get; set; } = Array.Empty<ITaskItem>();
 
@@ -55,12 +44,12 @@ public class FluidifyTask : Task
             }
 
             var context = new TemplateContext();
-            foreach (var name in item.MetadataNames)
+            foreach (DictionaryEntry entry in item.CloneCustomMetadata())
             {
-                var metadataName = name.ToString();
-                if (!ExcludedMetadata.Contains(metadataName))
+                var key = entry.Key.ToString();
+                if (!string.Equals(key, "TargetPath", StringComparison.OrdinalIgnoreCase))
                 {
-                    context.SetValue(metadataName, item.GetMetadata(metadataName));
+                    context.SetValue(key, entry.Value?.ToString() ?? "");
                 }
             }
 

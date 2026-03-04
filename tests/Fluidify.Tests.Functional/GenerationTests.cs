@@ -17,9 +17,20 @@ public class GenerationTests
 
     private static readonly string ExpectedDir = Path.Combine(SampleAppDir, "Expected");
 
+    private static readonly string[] GeneratedPaths =
+        ["Models/Greeting.cs", "Config/appsettings.json", "Output/report.html"];
+
     [OneTimeSetUp]
     public async Task PackAndBuildSampleApp()
     {
+        // Clean previously generated output files to avoid stale artifacts
+        foreach (var path in GeneratedPaths)
+        {
+            var fullPath = Path.Combine(SampleAppDir, path);
+            if (File.Exists(fullPath))
+                File.Delete(fullPath);
+        }
+
         // Clear any cached Fluidify package from the global NuGet cache
         var localsResult = await RunDotnet("nuget locals global-packages --list");
         var globalPackagesDir = localsResult.Output
