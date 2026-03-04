@@ -1,6 +1,6 @@
 # Fluidify
 
-An MSBuild task that processes [Fluid](https://github.com/sebastienros/fluid) (Liquid) templates at build time, turning `.fluid` files into generated code, configuration, or any other text output.
+A modern alternative to T4 — an MSBuild task that processes [Fluid](https://github.com/sebastienros/fluid) (Liquid) template files at build time to generate code, configuration, or any other text output.
 
 ## Installation
 

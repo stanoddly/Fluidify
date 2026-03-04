@@ -6,7 +6,7 @@
     <PackageId>Fluidify</PackageId>
     <Version>0.1.0</Version>
     <Authors>stanoddly</Authors>
-    <Description>MSBuild task that processes Fluid (Liquid) templates at build time, turning .fluid files into generated code, configuration, or any other text output.</Description>
+    <Description>A modern alternative to T4 — an MSBuild task that processes Fluid (Liquid) template files at build time to generate code, configuration, or any other text output.</Description>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/stanoddly/Fluidify</PackageProjectUrl>
     <RepositoryUrl>https://github.com/stanoddly/Fluidify</RepositoryUrl>
