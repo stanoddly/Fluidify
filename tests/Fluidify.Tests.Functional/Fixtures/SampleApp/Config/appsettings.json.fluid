@@ -1,0 +1,5 @@
+{
+  "AppName": "{{ project_name }}",
+  "Generated": {{ true }},
+  "Greeting": "{{ "hello" | capitalize }}"
+}

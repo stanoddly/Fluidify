@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Fluidify/Fluidify.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Fluidify.Tests.Functional/Fluidify.Tests.Functional.csproj" />
+  </Folder>
+</Solution>

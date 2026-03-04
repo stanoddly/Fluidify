@@ -1,0 +1,8 @@
+<Project>
+
+  <ItemGroup>
+    <FluidTemplate Include="**/*.fluid" />
+    <None Include="**/*.fluid" />
+  </ItemGroup>
+
+</Project>
