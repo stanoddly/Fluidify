@@ -14,7 +14,7 @@
   <ItemGroup>
     <Fluidify Include="Models/Greeting.cs.fluid" Greeting="HELLO" />
     <Fluidify Include="Config/appsettings.json.fluid" AppName="SampleApp" Version="1.0.0" />
-    <Fluidify Include="Templates/report.html.fluid" OutputPath="Output/report.html" Title="Status Report" Author="SampleApp" />
+    <Fluidify Include="Templates/report.html.fluid" Destination="Output/report.html" Title="Status Report" Author="SampleApp" />
   </ItemGroup>
 
 </Project>

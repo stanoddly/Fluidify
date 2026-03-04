@@ -30,7 +30,7 @@ public class FluidifyTask : Task
                 return false;
             }
 
-            var target = item.GetMetadata("OutputPath");
+            var target = item.GetMetadata("Destination");
             string outputPath;
             if (!string.IsNullOrEmpty(target))
             {
@@ -47,7 +47,7 @@ public class FluidifyTask : Task
             foreach (DictionaryEntry entry in item.CloneCustomMetadata())
             {
                 var key = entry.Key.ToString();
-                if (!string.Equals(key, "OutputPath", StringComparison.OrdinalIgnoreCase))
+                if (!string.Equals(key, "Destination", StringComparison.OrdinalIgnoreCase))
                 {
                     context.SetValue(key, entry.Value?.ToString() ?? "");
                 }
