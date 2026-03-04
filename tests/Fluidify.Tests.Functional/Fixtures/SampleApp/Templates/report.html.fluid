@@ -1,0 +1,6 @@
+<html>
+<body>
+  <h1>{{ Title }}</h1>
+  <p>Generated for {{ Author }}</p>
+</body>
+</html>
