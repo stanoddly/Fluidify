@@ -14,11 +14,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Fluid.Core" Version="2.31.0" PrivateAssets="all" />
     <PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.3.2" PrivateAssets="all" ExcludeAssets="runtime" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="build\Fluidify.props" Pack="true" PackagePath="build" Visible="false" />
     <None Include="build\Fluidify.targets" Pack="true" PackagePath="build" Visible="false" />
   </ItemGroup>
 
