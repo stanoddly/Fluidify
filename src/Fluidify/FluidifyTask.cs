@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using Fluid;
 using Microsoft.Build.Framework;
@@ -9,6 +10,9 @@ namespace Fluidify;
 
 public class FluidifyTask : Task
 {
+    private static readonly HashSet<string> ExcludedMetadataKeys =
+        new HashSet<string>(StringComparer.OrdinalIgnoreCase) { "Destination", "Compile" };
+
     [Required]
     public ITaskItem[] Templates { get; set; } = Array.Empty<ITaskItem>();
 
@@ -47,7 +51,7 @@ public class FluidifyTask : Task
             foreach (DictionaryEntry entry in item.CloneCustomMetadata())
             {
                 string key = entry.Key.ToString();
-                if (!string.Equals(key, "Destination", StringComparison.OrdinalIgnoreCase))
+                if (!ExcludedMetadataKeys.Contains(key))
                 {
                     context.SetValue(key, entry.Value?.ToString() ?? "");
                 }

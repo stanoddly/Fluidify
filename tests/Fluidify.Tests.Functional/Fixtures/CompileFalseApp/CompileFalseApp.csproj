@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Version must match src/Fluidify/Fluidify.csproj; resolved from the local artifacts feed, not nuget.org -->
+    <PackageReference Include="Fluidify" Version="0.0.0-local" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Fluidify Include="Models/Greeter.cs.fluid" Greeting="HELLO" Compile="false" />
+  </ItemGroup>
+
+</Project>
