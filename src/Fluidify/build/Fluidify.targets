@@ -30,15 +30,17 @@
           DependsOnTargets="ProcessFluidTemplates"
           Condition="'@(Fluidify)' != ''">
     <ItemGroup>
-      <!-- Auto-include .cs outputs unless Compile="false"; also honor explicit Compile="true" for any extension.
-           Remove then Include: prevents duplicate Compile entries when the file already exists on disk
+      <!-- Collect outputs that should be compiled: .cs by default (unless Compile="false"), others only with Compile="true". -->
+      <_FluidifyCompileOutput Include="%(Fluidify.OutputPath)"
+                              Condition="('%(Fluidify.Compile)' == 'true') or
+                                         ($([System.IO.Path]::GetExtension('%(Fluidify.OutputPath)')) == '.cs' and '%(Fluidify.Compile)' != 'false')" />
+    </ItemGroup>
+    <ItemGroup>
+      <!-- Remove then Include: prevents duplicate Compile entries when the file already exists on disk
            from a previous build and was picked up by the SDK glob at project load time. -->
-      <Compile Remove="%(Fluidify.OutputPath)"
-               Condition="('%(Fluidify.Compile)' == 'true') or
-                          ($([System.IO.Path]::GetExtension('%(Fluidify.OutputPath)')) == '.cs' and '%(Fluidify.Compile)' != 'false')" />
-      <Compile Include="%(Fluidify.OutputPath)"
-               Condition="('%(Fluidify.Compile)' == 'true') or
-                          ($([System.IO.Path]::GetExtension('%(Fluidify.OutputPath)')) == '.cs' and '%(Fluidify.Compile)' != 'false')" />
+      <Compile Remove="@(_FluidifyCompileOutput)" />
+      <Compile Include="@(_FluidifyCompileOutput)" />
+      <_FluidifyCompileOutput Remove="@(_FluidifyCompileOutput)" />
     </ItemGroup>
   </Target>
 

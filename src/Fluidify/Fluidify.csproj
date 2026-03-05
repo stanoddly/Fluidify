@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <PackageId>Fluidify</PackageId>
-    <Version>0.1.0</Version>
+    <Version>0.0.0-local</Version>
     <Authors>stanoddly</Authors>
     <Description>A modern alternative to T4 — an MSBuild task that processes Fluid (Liquid) template files at build time to generate code, configuration, or any other text output.</Description>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>

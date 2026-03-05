@@ -35,13 +35,21 @@ Building the project renders each template before compilation. The output path i
 
 Fluidify works with any text format — C#, JSON, HTML, YAML, or anything else. The `.fluid` extension is just a convention; the template itself is plain text with Liquid tags.
 
-### Including generated C# in compilation
+### Compilation
 
-By default, generated `.cs` files are not automatically compiled — MSBuild's SDK glob evaluates before templates are rendered. Add `Compile="true"` to include the output in compilation:
+Generated `.cs` files are automatically included in compilation. To opt out, set `Compile="false"`:
 
 ```xml
 <ItemGroup>
-  <Fluidify Include="WelcomeMessage.cs.fluid" Name="Alice" Compile="true" />
+  <Fluidify Include="WelcomeMessage.cs.fluid" Name="Alice" Compile="false" />
+</ItemGroup>
+```
+
+For non-`.cs` outputs that should be compiled, set `Compile="true"` explicitly:
+
+```xml
+<ItemGroup>
+  <Fluidify Include="Templates/Helper.fluid" Compile="true" />
 </ItemGroup>
 ```
 

@@ -7,7 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fluidify" Version="0.1.0" />
+    <!-- Version must match src/Fluidify/Fluidify.csproj; resolved from the local artifacts feed, not nuget.org -->
+    <PackageReference Include="Fluidify" Version="0.0.0-local" />
   </ItemGroup>
 
   <ItemGroup>
