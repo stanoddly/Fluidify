@@ -37,7 +37,9 @@ Fluidify works with any text format — C#, JSON, HTML, YAML, or anything else. 
 
 ### Compilation
 
-Generated `.cs` files are automatically included in compilation. To opt out, set `Compile="false"`:
+Generated `.cs` files are automatically included in compilation. Fluidify handles deduplication, so you don't need to add `<Compile Remove>` for generated files — there will be no CS2002 "specified multiple times" warnings even on rebuild.
+
+To opt out of compilation, set `Compile="false"`:
 
 ```xml
 <ItemGroup>
