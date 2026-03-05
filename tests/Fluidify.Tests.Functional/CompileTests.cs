@@ -72,6 +72,24 @@ public class CompileTests
             "Expected a missing type/namespace compiler error");
     }
 
+    [Test]
+    public async Task RebuildWithExistingOutput_NoDuplicateCompileWarning()
+    {
+        string compileAppProject = Path.Combine(CompileAppDir, "CompileApp.csproj");
+
+        // First build: generates the .cs file on disk
+        (int ExitCode, string Output) firstBuild = await RunDotnet($"build \"{compileAppProject}\" --force");
+        Assert.That(firstBuild.ExitCode, Is.EqualTo(0),
+            $"First build failed:\n{firstBuild.Output}");
+
+        // Second build: SDK glob picks up the file AND Fluidify adds it — should not duplicate
+        (int ExitCode, string Output) secondBuild = await RunDotnet($"build \"{compileAppProject}\" --force");
+        Assert.That(secondBuild.ExitCode, Is.EqualTo(0),
+            $"Second build failed:\n{secondBuild.Output}");
+        Assert.That(secondBuild.Output, Does.Not.Contain("CS2002"),
+            $"Duplicate compile warning detected on rebuild:\n{secondBuild.Output}");
+    }
+
     private static async Task<(int ExitCode, string Output)> RunDotnet(string arguments)
     {
         ProcessStartInfo psi = new ProcessStartInfo("dotnet", arguments)
