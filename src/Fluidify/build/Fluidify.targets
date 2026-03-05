@@ -7,13 +7,13 @@
           Condition="'@(Fluidify)' != ''">
     <ItemGroup>
       <Fluidify Condition="'%(Fluidify.Destination)' == ''">
-        <OutputPath>%(RootDir)%(Directory)%(Filename)</OutputPath>
+        <OutputPath>%(RelativeDir)%(Filename)</OutputPath>
       </Fluidify>
       <Fluidify Condition="'%(Fluidify.Destination)' != '' and $([System.IO.Path]::IsPathRooted('%(Fluidify.Destination)'))">
         <OutputPath>%(Fluidify.Destination)</OutputPath>
       </Fluidify>
       <Fluidify Condition="'%(Fluidify.Destination)' != '' and !$([System.IO.Path]::IsPathRooted('%(Fluidify.Destination)'))">
-        <OutputPath>$(MSBuildProjectDirectory)\%(Fluidify.Destination)</OutputPath>
+        <OutputPath>%(Fluidify.Destination)</OutputPath>
       </Fluidify>
     </ItemGroup>
   </Target>
