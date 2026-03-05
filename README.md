@@ -70,6 +70,10 @@ Use the `Destination` metadata to write the output to a different location:
 
 Relative paths are resolved from the project directory. Directories are created automatically.
 
+### Source control
+
+We recommend committing generated files to source control rather than gitignoring them. This way IDE features like IntelliSense and navigation work immediately after clone without building first, and `git diff` shows when generated output changes unexpectedly.
+
 ## How it works
 
 Fluidify registers an MSBuild target that runs before `CoreCompile`. For each `<Fluidify>` item it:
